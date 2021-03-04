@@ -49,6 +49,18 @@
     </a>
 </li>
 <li>
+    <a href="{{url('/data_nilai_un_sma')}}">
+        <i class="material-icons">layers</i>
+        <span>Data Nilai UN SMA</span>
+    </a>
+</li>
+<li>
+    <a href="{{url('/data_nilai_un_smk')}}">
+        <i class="material-icons">layers</i>
+        <span>Data Nilai UN SMK</span>
+    </a>
+</li>
+<li>
     <a href="{{url('/data_nilai_skala_4_sma')}}">
         <i class="material-icons">layers</i>
         <span>Data Nilai UN Skala 4 SMA</span>
@@ -151,6 +163,18 @@
     <a href="{{url('/ranking_semester')}}">
         <i class="material-icons">layers</i>
         <span>Ranking Semester</span>
+    </a>
+</li>
+<li>
+    <a href="{{url('/ref_jurusan')}}">
+        <i class="material-icons">layers</i>
+        <span>Ref Jurusan</span>
+    </a>
+</li>
+<li>
+    <a href="{{url('/ref_matpel')}}">
+        <i class="material-icons">layers</i>
+        <span>Ref Mata Pelajaran</span>
     </a>
 </li>
     </ul>

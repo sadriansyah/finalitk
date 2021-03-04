@@ -8,6 +8,6 @@ class DataPrestasi extends Model
 {
     protected $table = 'data_prestasi';
     protected $fillable = [
-        'id_prestasi', 'nomor_pendaftaran', 'jenis_prestasi','jenjang_prestasi', 'file_sertifikat','juara','kode_tahun_akademik',
+        'id_prestasi', 'nomor_pendaftaran', 'jenis_prestasi','jenjang_prestasi', 'file_sertifikat','juara','kode_tahun_akademik', 'no_prestasi',
     ];
 }

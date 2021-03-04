@@ -21,12 +21,14 @@
                             <span>Back To Dashboard</span>
                         </a>
                     </li>
+                	@if(auth()->user()->role != "koorprodi" && auth()->user()->role != "kajur")
                     <li>
                       <a href="{{url('/fileprestasi')}}">
                           <i class="material-icons">layers</i>
                           <span>File Prestasi</span>
                       </a>
                     </li>
+                @endif
                     @yield('prodi')
                     @yield('sbmptn')
                   </ul>

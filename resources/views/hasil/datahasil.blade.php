@@ -207,7 +207,7 @@
 
   <div class="col-md-12">
     <div class="table table-bordered">
-      <table class="table  js-basic-example dataTable"  style="font-size:7pt">
+      <table class="table table-bordered table-striped table-hover js-basic-example dataTable" style="font-size:7pt">
         <th >No</th>
         <th >Opsi</th>
         <th >No Pendaftaran</th>

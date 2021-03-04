@@ -95,7 +95,7 @@ class DashboardController extends Controller
       }
       $request->validate([
           'username' => 'required|unique:users|min:5',
-          'nama' => 'required|min:5',
+          'nama' => 'required|min:4',
           'password' => 'required|min:5',
       ]);
 

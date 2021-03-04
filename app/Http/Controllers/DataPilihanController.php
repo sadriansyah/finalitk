@@ -28,7 +28,7 @@ class DataPilihanController extends Controller
     {
       $d = $request->get('kode_tahun_akademik');
       $request->validate([
-          'file' => 'required|mimes:csv,txt'
+          'file' => 'required|mimes:csv,txt,xlsx'
       ]);
       Excel::import(new DataPilihanImport($d), request()->file('file'));
       return redirect()->back()->with('sukses', 'Import Data Pilihan Berhasil!');

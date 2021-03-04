@@ -22,20 +22,16 @@ class DataNilaiImport implements ToModel, WithHeadingRow
         return new DataNIlai([
             'nomor_pendaftaran' => $row['nomor_pendaftaran'],
             'semester' => $row['semester'],
-            'id_kelas' => $row['id_kelas'],
             'kode_mata_pelajaran' => $row['kode_mata_pelajaran'],
-            'nama_mata_pelajaran_kesetaraan' => $row['nama_mata_pelajaran_kesetaraan'],
+            'tingkat' => $row['tingkat'],
             'nilai_skala_4' => $row['nilai_skala_4'],
             'nilai_skala_100' => $row['nilai_skala_100'],
             'tahun_kur' => $row['tahun_kur'],
             'basis' => $row['basis'],
             'unit' => $row['unit'],
-            'remedial_4' => $row['remedial_4'],
-            'remedial_100' => $row['remedial_100'],
+
             'kkm' => $row['kkm'],
-            'jam_equivalen' => $row['jam_equivalen'],
-            'tahun_ambil' => $row['tahun_ambil'],
-            'semester_ambil' => $row['semester_ambil'],
+
             'kode_tahun_akademik' => $this->kode_tahun_akademik,
         ]);
     }

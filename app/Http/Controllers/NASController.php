@@ -52,16 +52,35 @@ class NASController extends Controller
       $programstudi = $kodeprodi;
       $tahun = $tahun;
 
-      $siswafinal = DB::select("SELECT*FROM siswa_final");
 
-      $rataNilai = DB::select("SELECT nomor_pendaftaran,kode_mata_pelajaran, sum(nilai_skala_100)/5 AS total FROM data_nilai WHERE kode_mata_pelajaran='MAT' OR kode_mata_pelajaran='IND' OR kode_mata_pelajaran='ING' GROUP BY nomor_pendaftaran, kode_mata_pelajaran ");
+      $resetdata = DB::select("SELECT*FROM data_reset WHERE tahun_akademik='$tahun'");
+      $cekreset = count($resetdata);
+      if($cekreset == 0){
 
-      $kriteria = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran, data_jurusan.nilai_akreditasi, ranking_akumulasi.percentile from data_siswa,data_jurusan,ranking_akumulasi WHERE data_siswa.id_jurusan = data_jurusan.id_jurusan AND data_siswa.nomor_pendaftaran = ranking_akumulasi.nomor_pendaftaran");
-      $prestasi = DB::select("SELECT*FROM data_prestasi WHERE kode_tahun_akademik='$tahun'");
-      $jurusan = DB::select("SELECT DISTINCT program_studi from data_pilihan WHERE kode_tahun_akademik='$tahun'");
+        if($tahun == '20201'){
+          $siswafinal = DB::select("SELECT*FROM siswa_final WHERE tahun_akademik ='$tahun'");
+
+          $rataNilai = DB::select("SELECT nomor_pendaftaran,kode_mata_pelajaran, sum(nilai_skala_100)/5 AS total FROM data_nilai WHERE kode_mata_pelajaran='MAT' OR kode_mata_pelajaran='IND' OR kode_mata_pelajaran='ING' AND kode_tahun_akademik='$tahun' GROUP BY nomor_pendaftaran, kode_mata_pelajaran ");
+
+          $kriteria = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran, data_jurusan.nilai_akreditasi, ranking_akumulasi.percentile from data_siswa,data_jurusan,ranking_akumulasi WHERE data_siswa.id_jurusan = data_jurusan.id_jurusan AND data_siswa.nomor_pendaftaran = ranking_akumulasi.nomor_pendaftaran AND data_siswa.kode_tahun_akademik='$tahun'");
+          $prestasi = DB::select("SELECT*FROM data_prestasi WHERE kode_tahun_akademik='$tahun'");
+          $jurusan = DB::select("SELECT DISTINCT program_studi from data_pilihan WHERE kode_tahun_akademik='$tahun'");
 
 
-      $cek = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran,nama_siswa,data_pilihan.kode_program_studi,urutan_ptn,urutan_program_studi,program_studi, data_siswa.kode_tahun_akademik from data_siswa,data_pilihan WHERE data_siswa.nomor_pendaftaran = data_pilihan.nomor_pendaftaran AND data_siswa.kode_tahun_akademik LIKE '%$tahun%'");
+          $cek = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran,nama_siswa,data_pilihan.kode_program_studi,urutan_ptn,urutan_program_studi,program_studi, data_siswa.kode_tahun_akademik from data_siswa,data_pilihan WHERE data_siswa.nomor_pendaftaran = data_pilihan.nomor_pendaftaran AND data_siswa.kode_tahun_akademik LIKE '%$tahun%'");
+
+        }else {
+          $siswafinal = DB::select("SELECT*FROM siswa_final WHERE tahun_akademik ='$tahun'");
+
+          $rataNilai = DB::select("SELECT nomor_pendaftaran,kode_mata_pelajaran, sum(nilai_skala_100)/5 AS total FROM data_nilai_un_sma WHERE kode_mata_pelajaran='MAT' OR kode_mata_pelajaran='IND' OR kode_mata_pelajaran='ING' AND kode_tahun_akademik='$tahun' GROUP BY nomor_pendaftaran, kode_mata_pelajaran ");
+
+          $kriteria = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran, data_sekolah.nilai_akreditasi from data_siswa,data_sekolah WHERE data_siswa.npsn_sekolah = data_sekolah.npsn AND data_siswa.kode_tahun_akademik='$tahun'");
+          $prestasi = DB::select("SELECT*FROM data_prestasi WHERE kode_tahun_akademik='$tahun'");
+          $jurusan = DB::select("SELECT DISTINCT program_studi from data_pilihan WHERE kode_tahun_akademik='$tahun'");
+
+
+          $cek = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran,nama_siswa,data_pilihan.kode_program_studi,urutan_ptn,urutan_program_studi,program_studi, data_siswa.kode_tahun_akademik from data_siswa,data_pilihan WHERE data_siswa.nomor_pendaftaran = data_pilihan.nomor_pendaftaran AND data_siswa.kode_tahun_akademik LIKE '%$tahun%'");
+        }
       $arr=array();
       //bobotnilai
       $nilaikriteria = DB::select("SELECT*FROM kriteria_nilai WHERE tahun_akademik='$tahun'");
@@ -123,7 +142,7 @@ class NASController extends Controller
             }else {
               $akre = $kri->nilai_akreditasi;
             }
-            $akumulasi = $akre*$kri->percentile*$bobotX11/100;
+            $akumulasi = $akre*$bobotX11/100;
             $total = $r['total']+$akumulasi;
             $isi['nomor_pendaftaran']=$kri->nomor_pendaftaran;
             $isi['nama_siswa'] = $r['nama_siswa'];
@@ -223,9 +242,7 @@ class NASController extends Controller
       // }
       // echo "</tbody></table>";
 
-      $resetdata = DB::select("SELECT*FROM data_reset WHERE tahun_akademik='$tahun'");
-      $cekreset = count($resetdata);
-      if($cekreset == 0){
+
         //sorting pilihan ptn 1 prodi urutan 1
         foreach($final as $fin){
           $nopen = $fin['nomor_pendaftaran'];
@@ -509,20 +526,39 @@ class NASController extends Controller
 
       $prodiditerima = DB::select("SELECT*FROM prodi");
       $kuotaprodi = $dayatampung->kapasitas;
-      $siswafinal = DB::select("SELECT*FROM siswa_final WHERE tahun_akademik='$tahun'");
-      $rataNilai = DB::select("SELECT nomor_pendaftaran,kode_mata_pelajaran, sum(nilai_skala_100)/5 AS total FROM data_nilai WHERE kode_mata_pelajaran='MAT' OR kode_mata_pelajaran='IND' OR kode_mata_pelajaran='ING' GROUP BY nomor_pendaftaran, kode_mata_pelajaran ");
 
-      $kriteria = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran, data_jurusan.nilai_akreditasi, ranking_akumulasi.percentile from data_siswa,data_jurusan,ranking_akumulasi,data_pilihan WHERE data_siswa.id_jurusan = data_jurusan.id_jurusan AND data_siswa.nomor_pendaftaran = ranking_akumulasi.nomor_pendaftaran AND data_siswa.kode_tahun_akademik= '$tahun'");
+      if($tahun == '20201'){
+        $siswafinal = DB::select("SELECT*FROM siswa_final WHERE tahun_akademik='$tahun'");
+        $rataNilai = DB::select("SELECT nomor_pendaftaran,kode_mata_pelajaran, sum(nilai_skala_100)/5 AS total FROM data_nilai WHERE kode_mata_pelajaran='MAT' OR kode_mata_pelajaran='IND' OR kode_mata_pelajaran='ING' AND kode_tahun_akademik='$tahun' GROUP BY nomor_pendaftaran, kode_mata_pelajaran  ");
+
+        $kriteria = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran, data_jurusan.nilai_akreditasi, ranking_akumulasi.percentile from data_siswa,data_jurusan,ranking_akumulasi,data_pilihan WHERE data_siswa.id_jurusan = data_jurusan.id_jurusan AND data_siswa.nomor_pendaftaran = ranking_akumulasi.nomor_pendaftaran AND data_siswa.kode_tahun_akademik= '$tahun'");
 
 
-      $prestasi = DB::select("SELECT*FROM data_prestasi WHERE data_prestasi.kode_tahun_akademik = '$tahun' ");
-      $jurusan = DB::select("SELECT DISTINCT program_studi from data_pilihan WHERE data_pilihan.kode_tahun_akademik='$tahun'");
+        $prestasi = DB::select("SELECT*FROM data_prestasi WHERE data_prestasi.kode_tahun_akademik = '$tahun' ");
+        $jurusan = DB::select("SELECT DISTINCT program_studi from data_pilihan WHERE data_pilihan.kode_tahun_akademik='$tahun'");
+
+
+        $cek = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran,nama_siswa,data_pilihan.kode_program_studi,urutan_ptn,urutan_program_studi,program_studi, data_siswa.kode_tahun_akademik, data_siswa.nik, data_siswa.nisn, data_siswa.npsn_sekolah, data_sekolah.nama_sekolah, data_sekolah.nama_kabupaten, data_siswa.kip_kks, data_sekolah.nama_provinsi, data_jurusan.kode_jurusan from data_siswa,data_pilihan,data_sekolah,data_jurusan WHERE data_siswa.nomor_pendaftaran = data_pilihan.nomor_pendaftaran AND data_siswa.npsn_sekolah = data_sekolah.npsn  AND data_siswa.id_jurusan = data_jurusan.id_jurusan AND data_pilihan.kode_program_studi= '$kodeprodi' AND data_siswa.kode_tahun_akademik = '$tahun' ");
+
+      }else {
+        $siswafinal = DB::select("SELECT*FROM siswa_final WHERE tahun_akademik ='$tahun'");
+
+        $rataNilai = DB::select("SELECT nomor_pendaftaran,kode_mata_pelajaran, sum(nilai_skala_100)/5 AS total FROM data_nilai_un_sma WHERE kode_mata_pelajaran='MAT' OR kode_mata_pelajaran='IND' OR kode_mata_pelajaran='ING' AND kode_tahun_akademik='$tahun' GROUP BY nomor_pendaftaran, kode_mata_pelajaran ");
+
+        $kriteria = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran, data_sekolah.nilai_akreditasi from data_siswa,data_sekolah WHERE data_siswa.npsn_sekolah = data_sekolah.npsn AND data_siswa.kode_tahun_akademik='$tahun'");
+        $prestasi = DB::select("SELECT*FROM data_prestasi WHERE kode_tahun_akademik='$tahun'");
+        $jurusan = DB::select("SELECT DISTINCT program_studi from data_pilihan WHERE kode_tahun_akademik='$tahun'");
+
+          $cek = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran,nama_siswa,data_pilihan.kode_program_studi,urutan_ptn,urutan_program_studi,program_studi, data_siswa.kode_tahun_akademik, data_siswa.nik, data_siswa.nisn, data_siswa.npsn_sekolah, data_sekolah.nama_sekolah, data_sekolah.nama_kabupaten, data_siswa.kip_kks, data_sekolah.nama_provinsi, ref_jurusan.nama_jurusan  from data_siswa,data_pilihan,data_sekolah, ref_jurusan WHERE data_siswa.nomor_pendaftaran = data_pilihan.nomor_pendaftaran AND data_siswa.npsn_sekolah = data_sekolah.npsn AND data_siswa.id_jurusan = ref_jurusan.id_jurusan  AND data_pilihan.kode_program_studi= '$kodeprodi' AND data_siswa.kode_tahun_akademik = '$tahun' ");
+
+
+      }
+
       $listprodi = DB::select("SELECT*FROM prodi");
       $tahun_sidebar = DB::select("SELECT*FROM tahun_akademik order by kode_tahun_akademik ASC");
-
       $datapilihan = DB::select("SELECT*FROM data_pilihan WHERE kode_tahun_akademik='$tahun'");
 
-      $cek = DB::select("SELECT DISTINCT data_siswa.nomor_pendaftaran,nama_siswa,data_pilihan.kode_program_studi,urutan_ptn,urutan_program_studi,program_studi, data_siswa.kode_tahun_akademik, data_siswa.nik, data_siswa.nisn, data_siswa.npsn_sekolah, data_sekolah.nama_sekolah, data_sekolah.nama_kabupaten, data_siswa.kip_kks, data_sekolah.nama_provinsi, data_jurusan.kode_jurusan from data_siswa,data_pilihan,data_sekolah,data_jurusan WHERE data_siswa.nomor_pendaftaran = data_pilihan.nomor_pendaftaran AND data_siswa.npsn_sekolah = data_sekolah.npsn  AND data_siswa.id_jurusan = data_jurusan.id_jurusan AND data_pilihan.kode_program_studi= '$kodeprodi' AND data_siswa.kode_tahun_akademik = '$tahun' ");
+
       $arr=array();
       //bobotnilai
       $nilaikriteria = DB::select("SELECT*FROM kriteria_nilai WHERE tahun_akademik='$tahun'");
@@ -578,7 +614,7 @@ class NASController extends Controller
         $fil['npsn'] = $c->npsn_sekolah;
         $fil['nama_sekolah'] = $c->nama_sekolah;
         $fil['kota_sekolah'] = $c->nama_kabupaten;
-        $fil['kode_jurusan'] = $c->kode_jurusan;
+        $fil['kode_jurusan'] = $c->nama_jurusan;
         $fil['nama_siswa'] = $c->nama_siswa;
         $fil['urutan_ptn'] = $c->urutan_ptn;
         $fil['kode_program_studi']=$c->kode_program_studi;
@@ -596,7 +632,7 @@ class NASController extends Controller
             }else {
               $akre = $kri->nilai_akreditasi;
             }
-            $akumulasi = $akre*$kri->percentile*$bobotX11/100;
+            $akumulasi = $akre*$bobotX11/100;
             $total = $r['total']+$akumulasi;
             $isi['nomor_pendaftaran']=$kri->nomor_pendaftaran;
             $isi['nama_siswa'] = $r['nama_siswa'];
@@ -730,7 +766,7 @@ class NASController extends Controller
         array_push($json,$isi);
       }
 
-      $progrmstudi = DB::select("SELECT*FROM data_pilihan WHERE kode_program_studi='$kodeprodi'");
+      $progrmstudi = DB::select("SELECT*FROM data_pilihan WHERE kode_program_studi='$kodeprodi' AND kode_tahun_akademik='$tahun' ");
       $prodiditerima = DB::select("SELECT*FROM prodi");
       foreach($progrmstudi as $prg){
         $pstudi = $prg->program_studi;
@@ -810,8 +846,8 @@ class NASController extends Controller
 
       $keys = array_column($upjson, 'total');
       array_multisort($keys, SORT_DESC, $upjson);
-      $urutan = array_column($upjson,'urutan_program_studi');
-      array_multisort($urutan,SORT_ASC,$upjson);
+      // $urutan = array_column($upjson,'urutan_program_studi');
+      // array_multisort($urutan,SORT_ASC,$upjson);
 
 
 

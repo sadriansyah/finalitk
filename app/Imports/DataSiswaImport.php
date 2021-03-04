@@ -27,7 +27,7 @@ class DataSiswaImport implements ToModel, WithHeadingRow
             'npsn_sekolah' => $row['npsn_sekolah'],
             'kode_jenis_kelamin' => $row['kode_jenis_kelamin'],
             'tanggal_lahir' => $row['tanggal_lahir'],
-            'kode_jenis_kelas' => $row['kode_jenis_kelas'],
+
             'nisn' => $row['nisn'],
             'nik' => $row['nik'],
             'ranking_versi_sekolah' => $row['ranking_versi_sekolah'],
@@ -36,8 +36,9 @@ class DataSiswaImport implements ToModel, WithHeadingRow
             'siswa_pindahan' => $row['siswa_pindahan'],
             'siswa_pertukaran_pelajar' => $row['siswa_pertukaran_pelajar'],
             'siswa_cuti' => $row['siswa_cuti'],
-            'penghasilan_ortu' => $row['penghasilan_ortu'],
+            'penghasilan_ortu' => $row['penghasilan_orang_tua'],
             'jumlah_tanggungan' => $row['jumlah_tanggungan'],
+            'tipe_studi' => $row['tipe_studi'],
             'kode_tahun_akademik' => $this->kode_tahun_akademik,
         ]);
     }

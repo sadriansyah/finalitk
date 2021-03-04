@@ -6,42 +6,8 @@
         <span>Import Data</span>
     </a>
     <ul class="ml-menu">
-  <li>
-    <a href="{{url('/testcsv')}}">
-        <i class="material-icons">text_fields</i>
-        <span>Test import</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_jurusan')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Jurusan</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_karya_portofolio')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Karya Portofolio</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_kelas')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Kelas</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_kelas_siswa')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Kelas Siswa</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_ketunaan_pendaftar')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Ketunaan Pendaftar</span>
-    </a>
-  </li>
+
+
 <li>
     <a href="{{url('/data_nilai')}}">
         <i class="material-icons">layers</i>
@@ -49,30 +15,15 @@
     </a>
 </li>
 <li>
-    <a href="{{url('/data_nilai_skala_4_sma')}}">
+    <a href="{{url('/data_nilai_un_sma')}}">
         <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 4 SMA</span>
+        <span>Data Nilai UN SMA</span>
     </a>
 </li>
 <li>
-<li>
-    <a href="{{url('/data_nilai_skala_100_sma')}}">
+    <a href="{{url('/data_nilai_un_smk')}}">
         <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 100 SMA</span>
-    </a>
-</li>
-<li>
-<li>
-    <a href="{{url('/data_nilai_skala_4_smk')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 4 SMK</span>
-    </a>
-</li>
-<li>
-<li>
-    <a href="{{url('/data_nilai_skala_100_smk')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 100 SMK</span>
+        <span>Data Nilai UN SMK</span>
     </a>
 </li>
 <li>
@@ -81,30 +32,14 @@
         <span>Data Nilai Status Tambahan</span>
     </a>
 </li>
-<li>
-    <a href="{{url('/data_nilai_tidak_ada')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Nilai Tidak Ada</span>
-    </a>
-</li>
-<li>
-    <a href="{{url('/data_perubahan_npsn')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Perubahan NPSN</span>
-    </a>
-</li>
+
 <li>
     <a href="{{url('/data_pilihan')}}">
         <i class="material-icons">layers</i>
         <span>Data Pilihan</span>
     </a>
 </li>
-<li>
-    <a href="{{url('/data_portofolio')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Portofolio</span>
-    </a>
-</li>
+
 <li>
     <a href="{{url('/data_prestasi')}}">
         <i class="material-icons">layers</i>
@@ -123,34 +58,24 @@
         <span>Data Siswa</span>
     </a>
 </li>
-<li>
-    <a href="{{url('/data_statistik_penghasilan')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Statistik Penghasilan Ayah</span>
-    </a>
-</li>
-<li>
-    <a href="{{url('/data_statistik_penghasilan_ibu')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Statistik Penghasilan Ibu</span>
-    </a>
-</li>
+
 <li>
     <a href="{{url('/data_status_tambahan')}}">
         <i class="material-icons">layers</i>
         <span>Data Status Tambahan</span>
     </a>
 </li>
+
 <li>
-    <a href="{{url('/ranking_akumulasi')}}">
+    <a href="{{url('/ref_jurusan')}}">
         <i class="material-icons">layers</i>
-        <span>Ranking Akumulasi</span>
+        <span>Ref Jurusan</span>
     </a>
 </li>
 <li>
-    <a href="{{url('/ranking_semester')}}">
+    <a href="{{url('/ref_matpel')}}">
         <i class="material-icons">layers</i>
-        <span>Ranking Semester</span>
+        <span>Ref Mata Pelajaran</span>
     </a>
 </li>
     </ul>
@@ -180,6 +105,7 @@
     @endforeach
   </ul>
 </li>
+
 
 @endsection
 @section('content')
@@ -225,8 +151,9 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>ID Prestasi</th>
+
                                         <th>Nomor Pendaftaran</th>
+
                                         <th>Jenis Prestasi</th>
                                         <th>Jenjang Prestasi</th>
                                         <th>File Sertifikat</th>
@@ -240,12 +167,28 @@
                                 @foreach($prestasi as $d)
                                     <tr>
                                         <th>{{$i}}</th>
-                                        <td>{{$d->id_prestasi}}</td>
-                                        <td>{{$d->nomor_pendaftaran}}</td>
+                                        <?php
+                                        $namafile = $d->file_sertifikat;
+                                        $formatfolder = explode("_",$namafile);
+                                        $formatfile = "";
+                                        $namafolder = $formatfolder[0];
+                                        if(file_exists("DokumenPendaftaran/$d->kode_tahun_akademik/$namafolder/$namafile".".jpeg")){
+                                          $formatfile = $namafile.".jpeg";
+                                        }elseif(file_exists("DokumenPendaftaran/$d->kode_tahun_akademik/$namafolder/$namafile".".pdf")) {
+                                          $formatfile = $namafile.".pdf";
+                                        }elseif(file_exists("DokumenPendaftaran/$d->kode_tahun_akademik/$namafolder/$namafile".".png")) {
+                                          $formatfile = $namafile.".png";
+                                        }elseif(file_exists("DokumenPendaftaran/$d->kode_tahun_akademik/$namafolder/$namafile".".jpg")) {
+                                          $formatfile = $namafile.".jpg";
+                                        }
+                                        ?>
+
+                                        <td>{{$d->nomor_pendaftaran}} </td>
+
                                         <td>{{$d->jenis_prestasi}}</td>
                                         <td>{{$d->jenjang_prestasi}}</td>
-                                        <td><a href="{{asset('DokumenPendaftaran/'.$d->kode_tahun_akademik.'/'. $d->nomor_pendaftaran .'/prestasi/'.$d->file_sertifikat)}}" class="btn bg-primary waves-effect"><i class="material-icons">save</i></a></td>
-                                        <td><input id="juara-{{$d->id_prestasi}}" onkeyup="simpan_juara('{{$d->id_prestasi}}')" type="number" value="{{$d->juara}}"></td>
+                                        <td><a href="{{asset('DokumenPendaftaran/'.$d->kode_tahun_akademik.'/'. $namafolder .'/'.$formatfile)}}" target="_blank" class="btn bg-primary waves-effect"><i class="material-icons">save</i></a></td>
+                                        <td><input id="juara-{{$d->id}}" onkeyup="simpan_juara('{{$d->id}}')" type="number" value="{{$d->juara}}"></td>
                                     </tr>
                                     <?php
                                     $i++
@@ -307,13 +250,13 @@
 </div>
 @push('scripts')
 <script type="text/javascript">
-  function simpan_juara(id_prestasi)
+  function simpan_juara(id)
   {
-    var juara = $("#juara-"+id_prestasi).val();
+    var juara = $("#juara-"+id).val();
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $.get("/input/juara",
     {
-      id_prestasi : id_prestasi,
+      id : id,
       juara : juara,
       _token : CSRF_TOKEN
     },

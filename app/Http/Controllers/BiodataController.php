@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\TahunSBMPTN;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\BiodataTerimaImport;
-use App\Imports\BiodataTerimabidikmisiImport;
+use App\Imports\BiodataTerimaBidikmisiImport;
 use App\Imports\BiodataPeminatImport;
 class BiodataController extends Controller
 {
@@ -19,7 +19,7 @@ class BiodataController extends Controller
     $data['tahun_akademik'] = TahunSBMPTN::pluck('tahun_akademik', 'kode_tahun_akademik');
     $data['tahun_akademik_pilihan'] = $p;
     $data['biodata'] = \DB::table('biodata_terima')
-                      ->join('tahun_akademik', 'biodata_terima.kode_tahun_akademik', '=', 'tahun_akademik.kode_tahun_akademik')
+                      ->join('tahun_sbmptn', 'biodata_terima.kode_tahun_akademik', '=', 'tahun_sbmptn.kode_tahun_akademik')
                       ->where('biodata_terima.kode_tahun_akademik', $p)
                       ->get();
     return view('sbmptn/biodata_terima', $data);
@@ -42,7 +42,7 @@ class BiodataController extends Controller
     $data['tahun_akademik'] = TahunSBMPTN::pluck('tahun_akademik', 'kode_tahun_akademik');
     $data['tahun_akademik_pilihan'] = $p;
     $data['biodata'] = \DB::table('biodata_terima_bidikmisi')
-                      ->join('tahun_akademik', 'biodata_terima_bidikmisi.kode_tahun_akademik', '=', 'tahun_akademik.kode_tahun_akademik')
+                      ->join('tahun_sbmptn', 'biodata_terima_bidikmisi.kode_tahun_akademik', '=', 'tahun_sbmptn.kode_tahun_akademik')
                       ->where('biodata_terima_bidikmisi.kode_tahun_akademik', $p)
                       ->get();
     return view('sbmptn/biodata_terima_bidikmisi', $data);
@@ -68,7 +68,7 @@ class BiodataController extends Controller
     $data['tahun_akademik'] = TahunSBMPTN::pluck('tahun_akademik', 'kode_tahun_akademik');
     $data['tahun_akademik_pilihan'] = $p;
     $data['biodata'] = \DB::table('biodata_peminat')
-                      ->join('tahun_akademik', 'biodata_peminat.kode_tahun_akademik', '=', 'tahun_akademik.kode_tahun_akademik')
+                      ->join('tahun_sbmptn', 'biodata_peminat.kode_tahun_akademik', '=', 'tahun_sbmptn.kode_tahun_akademik')
                       ->where('biodata_peminat.kode_tahun_akademik', $p)
                       ->get();
     return view('sbmptn/biodata_peminat', $data);

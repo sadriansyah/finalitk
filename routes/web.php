@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/testingdataprestasi', function(){
+  return view('testing');
+});
+
 Route::get('/coba','NASController@countfinal');
 
 //Login
@@ -218,6 +222,16 @@ Route::post('/importBiodataTerimaBidikmisi', 'BiodataController@import1');
 //biodata bm
 Route::get('/biodata_peminat', 'BiodataController@index2');
 Route::post('/importBiodataPeminat', 'BiodataController@import2');
+
+//import baru 4 tabel
+Route::get('/data_nilai_un_sma', 'DataNilaiUNSMAController@index');
+Route::post('/importDataNilaiUNSMA', 'DataNilaiUNSMAController@import');
+Route::get('/data_nilai_un_smk', 'DataNilaiUNSMKController@index');
+Route::post('/importDataNilaiUNSMK', 'DataNilaiUNSMKController@import');
+Route::get('/ref_jurusan', 'RefJurusanController@index');
+Route::post('/importRefJurusan', 'RefJurusanController@import');
+Route::get('/ref_matpel', 'RefMatpelController@index');
+Route::post('/importRefMatpel', 'RefMatpelController@import');
 
 //manajemen_akun
 Route::get('/manajemen_akun', 'DashboardController@akun');

@@ -20,16 +20,15 @@ class DataStatistikTambahanImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new DataStatistikTambahan([
-            'id_status_tambahan' => $row['id_status_tambahan'],
+
             'nomor_pendaftaran' => $row['nomor_pendaftaran'],
-            'kode_status_tambahan' => $row['kode_status_tambahan'],
-            'tahun_ajaran' => $row['tahun_ajaran'],
+
             'tingkat' => $row['tingkat'],
             'semester' => $row['semester'],
-            'kode_jurusan' => $row['kode_jurusan'],
-            'nama_kelas' => $row['nama_kelas'],
+            'status_tambahan' => $row['status_tambahan'],
+            'id_jurusan' => $row['id_jurusan'],
             'npsn_sekolah' => $row['npsn_sekolah'],
-            'nama_sekolah' => $row['nama_sekolah'],
+          
             'nisn_siswa' => $row['nisn_siswa'],
             'kode_tahun_akademik' => $this->kode_tahun_akademik,
         ]);

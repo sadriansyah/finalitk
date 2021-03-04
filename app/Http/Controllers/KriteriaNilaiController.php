@@ -91,7 +91,7 @@ class KriteriaNilaiController extends Controller
         return redirect('/');
       }
       $juara = \DB::table('data_prestasi')
-                ->where('id_prestasi', $request->id_prestasi)
+                ->where('id', $request->id)
                 ->update(['juara'         => $request->juara,
                         ]);
     }

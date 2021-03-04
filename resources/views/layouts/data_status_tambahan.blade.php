@@ -6,42 +6,8 @@
         <span>Import Data</span>
     </a>
     <ul class="ml-menu">
-  <li>
-    <a href="{{url('/testcsv')}}">
-        <i class="material-icons">text_fields</i>
-        <span>Test import</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_jurusan')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Jurusan</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_karya_portofolio')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Karya Portofolio</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_kelas')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Kelas</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_kelas_siswa')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Kelas Siswa</span>
-    </a>
-  </li>
-  <li>
-    <a href="{{url('/data_ketunaan_pendaftar')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Ketunaan Pendaftar</span>
-    </a>
-  </li>
+
+
 <li>
     <a href="{{url('/data_nilai')}}">
         <i class="material-icons">layers</i>
@@ -49,30 +15,15 @@
     </a>
 </li>
 <li>
-    <a href="{{url('/data_nilai_skala_4_sma')}}">
+    <a href="{{url('/data_nilai_un_sma')}}">
         <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 4 SMA</span>
+        <span>Data Nilai UN SMA</span>
     </a>
 </li>
 <li>
-<li>
-    <a href="{{url('/data_nilai_skala_100_sma')}}">
+    <a href="{{url('/data_nilai_un_smk')}}">
         <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 100 SMA</span>
-    </a>
-</li>
-<li>
-<li>
-    <a href="{{url('/data_nilai_skala_4_smk')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 4 SMK</span>
-    </a>
-</li>
-<li>
-<li>
-    <a href="{{url('/data_nilai_skala_100_smk')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Nilai UN Skala 100 SMK</span>
+        <span>Data Nilai UN SMK</span>
     </a>
 </li>
 <li>
@@ -81,30 +32,14 @@
         <span>Data Nilai Status Tambahan</span>
     </a>
 </li>
-<li>
-    <a href="{{url('/data_nilai_tidak_ada')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Nilai Tidak Ada</span>
-    </a>
-</li>
-<li>
-    <a href="{{url('/data_perubahan_npsn')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Perubahan NPSN</span>
-    </a>
-</li>
+
 <li>
     <a href="{{url('/data_pilihan')}}">
         <i class="material-icons">layers</i>
         <span>Data Pilihan</span>
     </a>
 </li>
-<li>
-    <a href="{{url('/data_portofolio')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Portofolio</span>
-    </a>
-</li>
+
 <li>
     <a href="{{url('/data_prestasi')}}">
         <i class="material-icons">layers</i>
@@ -123,34 +58,24 @@
         <span>Data Siswa</span>
     </a>
 </li>
-<li>
-    <a href="{{url('/data_statistik_penghasilan')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Statistik Penghasilan Ayah</span>
-    </a>
-</li>
-<li>
-    <a href="{{url('/data_statistik_penghasilan_ibu')}}">
-        <i class="material-icons">layers</i>
-        <span>Data Statistik Penghasilan Ibu</span>
-    </a>
-</li>
+
 <li>
     <a href="{{url('/data_status_tambahan')}}">
         <i class="material-icons">layers</i>
         <span>Data Status Tambahan</span>
     </a>
 </li>
+
 <li>
-    <a href="{{url('/ranking_akumulasi')}}">
+    <a href="{{url('/ref_jurusan')}}">
         <i class="material-icons">layers</i>
-        <span>Ranking Akumulasi</span>
+        <span>Ref Jurusan</span>
     </a>
 </li>
 <li>
-    <a href="{{url('/ranking_semester')}}">
+    <a href="{{url('/ref_matpel')}}">
         <i class="material-icons">layers</i>
-        <span>Ranking Semester</span>
+        <span>Ref Mata Pelajaran</span>
     </a>
 </li>
     </ul>
@@ -180,6 +105,7 @@
     @endforeach
   </ul>
 </li>
+
 
 @endsection
 @section('content')
@@ -225,17 +151,15 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>ID Status Tambahan</th>
+
                                         <th>Nomor Pendaftaran</th>
-                                        <th>Kode Status Tambahan</th>
-                                        <th>Tahun Ajaran</th>
+
                                         <th>Tingkat</th>
                                         <th>Semester</th>
-                                        <th>Kode Jurusan</th>
-                                        <th>Nama Kelas</th>
+                                        <th>Status Tambahan</th>
+                                        <th>ID Jurusan</th>
                                         <th>NPSN Sekolah</th>
-                                        <th>Nama Sekolah</th>
-                                        <th>NISN</th>
+                                        <th>NISN Siswa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -245,16 +169,17 @@
                                 @foreach($tambahan as $d)
                                     <tr>
                                         <th>{{$i}}</th>
-                                        <td>{{$d->id_status_tambahan}}</td>
+
                                         <td>{{$d->nomor_pendaftaran}}</td>
-                                        <td>{{$d->kode_status_tambahan}}</td>
-                                        <td>{{$d->tahun_ajaran}}</td>
+
+
                                         <td>{{$d->tingkat}}</td>
                                         <td>{{$d->semester}}</td>
-                                        <td>{{$d->kode_jurusan}}</td>
-                                        <td>{{$d->nama_kelas}}</td>
+                                        <td>{{$d->status_tambahan}}</td>
+                                        <td>{{$d->id_jurusan}}</td>
+
                                         <td>{{$d->npsn_sekolah}}</td>
-                                        <td>{{$d->nama_sekolah}}</td>
+
                                         <td>{{$d->nisn_siswa}}</td>
                                     </tr>
                                     <?php

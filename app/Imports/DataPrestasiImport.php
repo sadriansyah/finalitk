@@ -4,8 +4,8 @@ namespace App\Imports;
 
 use App\DataPrestasi;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-class DataPrestasiImport implements ToModel, WithHeadingRow
+
+class DataPrestasiImport implements ToModel
 {
     /**
     * @param array $row
@@ -20,11 +20,11 @@ class DataPrestasiImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new DataPrestasi([
-            'id_prestasi' => $row['id_prestasi'],
-            'nomor_pendaftaran' => $row['nomor_pendaftaran'],
-            'jenis_prestasi' => $row['jenis_prestasi'],
-            'jenjang_prestasi' => $row['jenjang_prestasi'],
-            'file_sertifikat' => $row['file_sertifikat'],
+            'nomor_pendaftaran' => $row[0],
+            'no_prestasi' => $row[1],
+            'jenis_prestasi' => $row[2],
+            'jenjang_prestasi' => $row[3],
+            'file_sertifikat' => $row[4],
             'kode_tahun_akademik' => $this->kode_tahun_akademik,
         ]);
     }

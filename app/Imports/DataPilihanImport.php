@@ -20,12 +20,12 @@ class DataPilihanImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new DataPilihan([
-            'nomor_pendaftaran' => $row['nomor_pendaftaran'],
-            'kode_program_studi' => $row['kode_program_studi'],
-            'urutan_ptn' => $row['urutan_ptn'],
-            'urutan_program_studi' => $row['urutan_program_studi'],
-            'program_studi' => $row['program_studi'],
-            'kode_tahun_akademik' => $this->kode_tahun_akademik,
+          'kode_program_studi' => $row['kode_program_studi'],
+          'nomor_pendaftaran' => $row['nomor_pendaftaran'],
+          'urutan_program_studi' => $row['urutan_program_studi'],
+          'urutan_ptn' => $row['urutan_ptn'],
+          'program_studi' => $row['program_studi'],
+          'kode_tahun_akademik' => $this->kode_tahun_akademik,
         ]);
     }
 }

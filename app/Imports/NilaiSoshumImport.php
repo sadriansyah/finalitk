@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\NilaiSOSHUM;
+use App\NilaiSoshum;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 class NilaiSoshumImport implements ToModel, WithStartRow
@@ -23,7 +23,7 @@ class NilaiSoshumImport implements ToModel, WithStartRow
     }
     public function model(array $row)
     {
-        return new NilaiSOSHUM([
+        return new NilaiSoshum([
           'nama_ptn' => $row[1],
           'jumlah' => $row[2],
           'rataan' => $row[3],
